@@ -34,6 +34,7 @@ session_start();
                         </form>
                 </div>
         </div>   
+        <?php require_once('conexion.php');?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
