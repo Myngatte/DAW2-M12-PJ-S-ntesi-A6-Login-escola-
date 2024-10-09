@@ -32,6 +32,7 @@ session_start();
                             
                             <label for="contrasena">Contraseña:</label><br>
                             <input type="password" id="contrasena" name="contrasena"><br><br>
+                            
                         <button type="submit" name="boton" id="boton" value="1">Iniciar sesion</button>
                         </form>
                 </div>
