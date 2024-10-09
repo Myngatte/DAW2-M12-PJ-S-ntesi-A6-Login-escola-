@@ -18,18 +18,21 @@ session_start();
     <title>Login</title>  
 </head>
 <body>
+    <script src="./scriptsjs/validations.js"></script>
     <div id="todo">
         <div id="contenedor_derecha">
             
         </div>        
         <div id="contenedor_izquierda"> 
                 <div id="cuadrado">
-                    <p>CRECER JUNTOS, BRILLAR SIEMPRE</p> 
-                        <h3 class="gestion"> Gestión </h3>
-                        <h3 class="gestion"> de la </h3>
-                        <h3 class="gestion"> escuela </h3>
-                        <form method="POST" action="./formularios/login.php">
-                            <button type="submit" name="boton" id="boton" value="1">Iniciar sesion</button>
+                        <h3 class="gestion"> Login </h3>
+                        <form method="POST" action="./Proceso/proceso.php">
+                            <label for="nombre">Nombre de usuario:</label><br>
+                            <input type="text" id="nombre" name="nombre"><br><br>
+                            
+                            <label for="contrasena">Contraseña:</label><br>
+                            <input type="password" id="contrasena" name="contrasena"><br><br>
+                        <button type="submit" name="boton" id="boton" value="1">Iniciar sesion</button>
                         </form>
                 </div>
         </div>   
