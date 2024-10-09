@@ -18,6 +18,7 @@ session_start();
     <title>Pagina principal</title>  
 </head>
 <body>
+    <script src="./scriptsjs/validations.js"></script>
     <div id="todo">
         <div id="contenedor_derecha">
             <img id="derecha" src="./img/header.png" alt="">
@@ -25,7 +26,7 @@ session_start();
         <div id="contenedor_izquierda"> 
             <img id="izquierda" src="./img/logo.png" alt="">
                 <div id="cuadrado">
-                    <p class="eslogan">CRECER JUNTOS, BRILLAR SIEMPRE</p> 
+                    <p>CRECER JUNTOS, BRILLAR SIEMPRE</p> 
                         <h3 class="gestion"> Gestión </h3>
                         <h3 class="gestion"> de la </h3>
                         <h3 class="gestion"> escuela </h3>
