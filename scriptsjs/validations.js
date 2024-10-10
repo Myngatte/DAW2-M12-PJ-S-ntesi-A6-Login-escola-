@@ -1,7 +1,7 @@
 function validarFormulario() {
 
     var nombre = document.getElementById("nombre").value;
-    var contrasena = document.getElementById("contrasena").value;
+    var contrasena = document.getElementById("password").value;
     
     // Expresiones regulares para validaciones
     var validarNombre = /^[A-Za-z]+$/; // Solo letras
