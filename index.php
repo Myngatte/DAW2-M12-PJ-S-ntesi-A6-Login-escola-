@@ -16,20 +16,20 @@ session_start();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="text/Javascript" src="./scriptsjs/validations.js"></script>
     <title>Pagina principal</title>  
 </head>
 <body>
-    <script src="./scriptsjs/validations.js"></script>
     <div class="container">
         <div class="left-section">
             <img src="./Imagenes/escudo.png" alt="Escudo" class="logo">
         </div>
         <div class="right-section">
             <h1>Bienvenid@</h1>
-            <form action="proceso/proceso.php" method="POST">
-                <input type="text" id="username" name="username" placeholder="Usuario" required>
+            <form action="./Proceso/proceso.php" method="POST">
+                <input type="text" id="nombre" name="nombre" placeholder="Usuario">
                 <div class="contrasena-container">
-                    <input type="password" id="constrasena" name="contrasena" placeholder="Contraseña" required>
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña">
                     <i class="toggle-contrasena fa fa-eye"></i>
                 </div>
                 <button type="submit">Iniciar sesión</button>
