@@ -12,10 +12,12 @@ create table tbl_usuario(
     tipo_usuario  enum('educador','secretario','profesor') not null
 
 );
-insert into tbl_usuario (usuario_escuela, nom_usuario, ape_usuario, contra_usuario, telefono_usuario, fecha_nacimi_usuario, sexo_usuario, tipo_usuario) 
-values 
-('jperez', 'Juan', 'Perez', '123456', '987654321', '1990-01-01', 'M', 'educador'),
-('mrodriguez', 'Maria', 'Rodriguez', 'qwerty', '987654322', '1995-06-15', 'F', 'secretario'),
-('plopez', 'Pedro', 'Lopez', 'asdfgh', '987654323', '1980-03-20', 'M', 'profesor'),
-('agarcia', 'Ana', 'Garcia', 'zxcvbn', '987654324', '1992-09-10', 'F', 'educador'),
-('csanchez', 'Carlos', 'Sanchez', '1234567', '987654325', '1985-11-25', 'M', 'secretario');
+
+INSERT INTO tbl_usuario (usuario_escuela, nom_usuario, ape_usuario, contra_usuario, telefono_usuario, fecha_nacimi_usuario, sexo_usuario, tipo_usuario) 
+VALUES 
+('jperez', 'Juan', 'Perez', AES_ENCRYPT('123456', 'clave_aes'), '987654321', '1990-01-01', 'M', 'educador'),
+('mrodriguez', 'Maria', 'Rodriguez', AES_ENCRYPT('qwerty', 'clave_aes'), '987654322', '1995-06-15', 'F', 'secretario'),
+('plopez', 'Pedro', 'Lopez', AES_ENCRYPT('asdfgh', 'clave_aes'), '987654323', '1980-03-20', 'M', 'profesor'),
+('agarcia', 'Ana', 'Garcia', AES_ENCRYPT('zxcvbn', 'clave_aes'), '987654324', '1992-09-10', 'F', 'educador'),
+('csanchez', 'Carlos', 'Sanchez', AES_ENCRYPT('1234567', 'clave_aes'), '987654325', '1985-11-25', 'M', 'secretario');
+
