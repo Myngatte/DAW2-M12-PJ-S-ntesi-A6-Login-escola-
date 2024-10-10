@@ -1,4 +1,5 @@
 <?php
+    session_start();
     session_abort();
     header("Cache-Control: no-cache, no-store, must-revalidate");
     header("Pragma: no-cache");

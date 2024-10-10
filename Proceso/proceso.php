@@ -25,16 +25,32 @@ if (filter_has_var(INPUT_POST, 'boton')) {
             // Evitar inyección de código
             $usuario = mysqli_real_escape_string($conn, $_SESSION['usuario']);
             $contra = mysqli_real_escape_string($conn, $_SESSION['contra']);
-            $sql = "SELECT usuario_escuela, contra_usuario FROM tbl_usuario WHERE usuario_escuela = ? AND contra_usuario = ?";
+            
+            // Modificar la consulta para desencriptar la contraseña
+            $sql = "SELECT usuario_escuela, AES_DECRYPT(contra_usuario, 'clave_aes') AS contra_desencriptada 
+                    FROM tbl_usuario 
+                    WHERE usuario_escuela = ?";
+            
             $stmt = mysqli_stmt_init($conn);
             mysqli_stmt_prepare($stmt, $sql);
-            mysqli_stmt_bind_param($stmt, 'ss', $usuario, $contra);
+            mysqli_stmt_bind_param($stmt, 's', $usuario);
             mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            if (mysqli_num_rows($result) == 0) {
+            $resultado = mysqli_stmt_get_result($stmt);
+            
+            if (mysqli_num_rows($resultado) == 0) {
                 $errores .= ($errores === "") ? "credencialesInvalidas=true" : "&credencialesInvalidas=true";
                 header('Location: ../index.php?' . $errores);
                 exit();
+            } else {
+                $fila = mysqli_fetch_assoc($resultado);
+                $contra_desencriptada = $fila['contra_desencriptada'];
+                
+                // Comparar la contraseña ingresada con la desencriptada
+                if ($contra_desencriptada !== $contra) {
+                    $errores .= ($errores === "") ? "credencialesInvalidas=true" : "&credencialesInvalidas=true";
+                    header('Location: ../index.php?' . $errores);
+                    exit();
+                }
             }
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
@@ -50,4 +66,3 @@ if (filter_has_var(INPUT_POST, 'boton')) {
     exit();
 }
 ?>
-
