@@ -6,41 +6,45 @@ session_start();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">  
-    <title>Login</title>  
+    <title>Página de Inicio de Sesión</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <script src="./scriptsjs/validations.js"></script>
-    <div id="todo">
-        <div id="contenedor_derecha">
-            
-        </div>        
-        <div id="contenedor_izquierda"> 
-                <div id="cuadrado">
-                        <h3 class="gestion"> Login </h3>
-                        <form method="POST" action="./Proceso/proceso.php">
-                            <label for="nombre">Nombre de usuario:</label><br>
-                            <input type="text" id="nombre" name="nombre"><br><br>
-                            
-                            <label for="contrasena">Contraseña:</label><br>
-                            <input type="password" id="contrasena" name="contrasena"><br><br>
-                            
-                        <button type="submit" name="boton" id="boton" value="1">Iniciar sesion</button>
-                        </form>
+    <script type="text/Javascript" src="./scriptsjs/validations.js"></script>
+    <div class="container">
+        <div class="left-section">
+            <img src="escudo.png" alt="Escudo" class="logo">
+        </div>
+        <div class="right-section">
+            <h1>Bienvenid@</h1>
+            <form action="./Proceso/proceso.php" method="POST">
+                <input type="text" name="username" placeholder="Usuario" required>
+                <div class="password-container">
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <i class="toggle-password fa fa-eye"></i> <!-- Icono para mostrar/ocultar contraseña -->
                 </div>
-        </div>   
-        <?php require_once('conexion.php');?>
+                <button type="submit">Iniciar sesión</button>
+            </form>
+        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- Script para mostrar/ocultar la contraseña -->
+    <script>
+        document.querySelector('.toggle-password').addEventListener('click', function () {
+            const passwordField = this.previousElementSibling;
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+    <?php require_once('conexion.php');?>
 </body>
 </html>
+
+
 
