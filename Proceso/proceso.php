@@ -1,12 +1,12 @@
 <?php
 session_start();
-if (filter_has_var(INPUT_GET, 'boton')) {
+if (filter_has_var(INPUT_POST, 'boton')) {
     $errores = ""; 
-    if (!isset($_GET['nombre']) || !isset($_GET['contrasena']) || $_GET['nombre'] === "" || $_GET['contrasena'] === "") {
+    if (!isset($_POST['nombre']) || !isset($_POST['contrasena']) || $_POST['nombre'] === "" || $_POST['contrasena'] === "") {
         header('Location: ../index.php?campovacio=true');
     } else {
-        $_SESSION['usuario'] = $_GET['nombre'];  
-        $_SESSION['contra'] = $_GET['contrasena'];
+        $_SESSION['usuario'] = $_POST['nombre'];  
+        $_SESSION['contra'] = $_POST['contrasena'];
         $validarContra = '/^(?=.*[a-z])(?=.*\d).{8,}$/i';
 
         if (!preg_match('/^[a-zA-Z]+$/', $_SESSION['usuario'])) {
@@ -16,6 +16,7 @@ if (filter_has_var(INPUT_GET, 'boton')) {
             $errores .= ($errores === "") ? "contrasenaInvalida=true" : "&contrasenaInvalida=true";
         }
         if ($errores !== "") {
+            session_abort();
             header('Location: ../index.php?' . $errores);
             exit();
         }
@@ -44,6 +45,7 @@ if (filter_has_var(INPUT_GET, 'boton')) {
         }
     }
 } else {
+    session_abort();
     header('Location: ../index.php?error=boton');
     exit();
 }

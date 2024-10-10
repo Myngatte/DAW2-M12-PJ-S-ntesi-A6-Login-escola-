@@ -1,10 +1,9 @@
 <?php
-
-session_start();
-// $_SESSION['acceso_index'] = true;
-
+    session_abort();
+    header("Cache-Control: no-cache, no-store, must-revalidate");
+    header("Pragma: no-cache");
+    header("Expires: 0");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,17 +27,17 @@ session_start();
             <h1>Bienvenid@</h1>
             <form action="./Proceso/proceso.php" onsubmit="return validarFormulario()" method="POST">
                 <input type="text" id="nombre" name="nombre" placeholder="Usuario">
-
                 <p id="error-nombre" style="color: red;"></p>
-                
+                <br>
+
                 <div class="contrasena-container">
                     <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña">
                     <i class="toggle-contrasena fa fa-eye"></i>
                 </div>
 
                 <p id="error-contrasena" style="color: red;"></p>
-
-                <button type="submit">Iniciar sesión</button>
+                <br>
+                <button type="submit" name="boton" value="boton">Iniciar sesión</button>
             </form>
         </div>
     </div>
@@ -51,8 +50,6 @@ session_start();
             this.classList.toggle('fa-eye-slash');
         });
     </script>
-
-        <?php require_once('conexion.php');?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
