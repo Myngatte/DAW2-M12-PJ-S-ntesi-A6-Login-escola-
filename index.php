@@ -27,7 +27,7 @@ session_start();
             <img id="izquierda" src="./img/logo.png" alt="">
                 <div id="cuadrado">
                         <h3 class="gestion"> Login </h3>
-                        <form method="POST" action="./Proceso/proceso.php">
+                        <form method="GET" action="./Proceso/proceso.php">
                             <label for="nombre">Nombre de usuario:</label><br>
                             <input type="text" id="nombre" name="nombre"><br><br>
                             
