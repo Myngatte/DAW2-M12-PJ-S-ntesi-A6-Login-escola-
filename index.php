@@ -26,7 +26,7 @@ session_start();
         </div>
         <div class="right-section">
             <h1>Bienvenid@</h1>
-            <form action="./Proceso/proceso.php" method="POST">
+            <form action="./Proceso/proceso.php" onsubmit="return validarFormulario()" method="POST">
                 <input type="text" id="nombre" name="nombre" placeholder="Usuario">
                 <div class="contrasena-container">
                     <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña">
