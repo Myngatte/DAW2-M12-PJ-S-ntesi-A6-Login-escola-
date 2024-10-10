@@ -23,9 +23,9 @@ session_start();
         <div class="right-section">
             <h1>Bienvenid@</h1>
             <form action="./Proceso/proceso.php" method="POST">
-                <input type="text" name="username" placeholder="Usuario" required>
+                <input type="text" name="nombre" id="nombre" placeholder="Usuario">
                 <div class="password-container">
-                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <input type="password" name="password" id="password" placeholder="Contraseña">
                     <i class="toggle-password fa fa-eye"></i> <!-- Icono para mostrar/ocultar contraseña -->
                 </div>
                 <button type="submit">Iniciar sesión</button>
