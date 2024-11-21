@@ -27,19 +27,13 @@ header("Expires: 0");
         <div class="right-section">
             <h1>Bienvenid@</h1>
             <form action="./Proceso/proceso.php" onsubmit="return validarFormulario()" method="POST">
-                <input type="text" id="nombre" name="nombre" placeholder="Usuario" value="<?php echo isset($_SESSION['usuario']) ? $_SESSION['usuario'] : ''; ?>">
-                <?php if (isset($_GET['usernameVacio'])) { echo "<p style='color:red;'>El campo de usuario está vacío.</p>"; } ?>
-                <?php if (isset($_GET['usuarioInvalido'])) { echo "<p style='color:red;'>El nombre de usuario contiene caracteres no válidos. Solo se permiten letras y números.</p>"; } ?>
+                <input type="text" id="nombre" name="nombre" placeholder="Usuario">
                 <br>
-
                 <div class="contrasena-container">
-                    <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" value="<?php echo isset($_SESSION['contra']) ? $_SESSION['contra'] : ''; ?>">
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña">
                     <i class="toggle-contrasena fa fa-eye"></i>
                 </div>
-                <?php if (isset($_GET['contrasenaVacio'])) { echo "<p style='color:red;'>El campo de la contraseña está vacío.</p>"; } ?>
-                <?php if (isset($_GET['contrasenaInvalida'])) { echo "<p style='color:red;'>La contraseña no es válida. Debe tener al menos 8 caracteres, contener letras y números.</p>"; } ?>
                 <br>
-
                 <button type="submit" name="boton" value="boton">Iniciar sesión</button>
             </form>
         </div>

@@ -1,68 +1,38 @@
 <?php
+require_once('../conexion.php');
 session_start();
-if (filter_has_var(INPUT_POST, 'boton')) {
-    $errores = ""; 
-    if (!isset($_POST['nombre']) || !isset($_POST['contrasena']) || $_POST['nombre'] === "" || $_POST['contrasena'] === "") {
-        header('Location: ../index.php?campovacio=true');
-    } else {
-        $_SESSION['usuario'] = $_POST['nombre'];  
-        $_SESSION['contra'] = $_POST['contrasena'];
-        $validarContra = '/^(?=.*[a-z])(?=.*\d).{8,}$/i';
+if (isset($_POST['btn_iniciar_sesion'])  && !empty($_POST['Usuario']) && !empty($_POST['Contra'])) {
+    $contra = isset($_POST['Contra']) ? mysqli_real_escape_string($conexion, htmlspecialchars($_POST['Contra'])) : '';
+    $usuario = isset($_POST['Usuario']) ? mysqli_real_escape_string($conexion, htmlspecialchars($_POST['Usuario'])) : '';
+    $_SESSION['usuario'] = $usuario;
+    try {
+        mysqli_autocommit($conexion, false);
+        mysqli_begin_transaction($conexion, MYSQLI_TRANS_START_READ_WRITE);
 
-        if (!preg_match('/^[a-zA-Z]+$/', $_SESSION['usuario'])) {
-            $errores .= ($errores === "") ? "usuarioInvalido=true" : "&usuarioInvalido=true";
-        }
-        if (!preg_match($validarContra, $_SESSION['contra'])) {
-            $errores .= ($errores === "") ? "contrasenaInvalida=true" : "&contrasenaInvalida=true";
-        }
-        if ($errores !== "") {
-            session_abort();
-            header('Location: ../index.php?' . $errores);
-            exit();
-        }
-        require_once '../conexion.php';
-        try {
-            // Evitar inyección de código
-            $usuario = mysqli_real_escape_string($conn, $_SESSION['usuario']);
-            $contra = mysqli_real_escape_string($conn, $_SESSION['contra']);
-            
-            // Modificar la consulta para desencriptar la contraseña
-            $sql = "SELECT usuario_escuela, AES_DECRYPT(contra_usuario, 'clave_aes') AS contra_desencriptada 
-                    FROM tbl_usuario 
-                    WHERE usuario_escuela = ?";
-            
-            $stmt = mysqli_stmt_init($conn);
-            mysqli_stmt_prepare($stmt, $sql);
-            mysqli_stmt_bind_param($stmt, 's', $usuario);
-            mysqli_stmt_execute($stmt);
-            $resultado = mysqli_stmt_get_result($stmt);
-            
-            if (mysqli_num_rows($resultado) == 0) {
-                $errores .= ($errores === "") ? "credencialesInvalidas=true" : "&credencialesInvalidas=true";
-                header('Location: ../index.php?' . $errores);
+        $sql = "SELECT usuario_escuela, contra_usuario,rol FROM tbl_usuario WHERE usuario_escuela = ?";
+        $stmt = mysqli_prepare($conexion, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $usuario);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+
+        if ($usuario_db = mysqli_fetch_assoc($resultado)) {
+            if (password_verify($contra, $usuario_db['contra_usuario'])) {
+                $_SESSION['usuario'] = $usuario;
+                header("Location: ../menu.php");    
                 exit();
             } else {
-                $fila = mysqli_fetch_assoc($resultado);
-                $contra_desencriptada = $fila['contra_desencriptada'];
-                
-                // Comparar la contraseña ingresada con la desencriptada
-                if ($contra_desencriptada !== $contra) {
-                    $errores .= ($errores === "") ? "credencialesInvalidas=true" : "&credencialesInvalidas=true";
-                    header('Location: ../index.php?' . $errores);
-                    exit();
-                }
+                header('Location:../index.php?error=contrasena_incorrecta');
             }
-            mysqli_stmt_close($stmt);
-            mysqli_close($conn);
-            header('Location: inicio.php');
-        } catch (Exception $e) {
-            echo "Error al agregar el registro: " . $e->getMessage();
-            die();
+        } else {
+            header('Location:../index.php?error=usuario_no_encontrado');
         }
+
+        mysqli_stmt_close($stmt);
+        mysqli_commit($conexion);
+    } catch (Exception $e) {
+        mysqli_rollback($conexion);
+        echo "Se produjo un error: " . htmlspecialchars($e->getMessage());
     }
 } else {
-    session_abort();
-    header('Location: ../index.php?error=boton');
-    exit();
+    header('Location: ../index.php?error=campos_vacios');
 }
-?>
