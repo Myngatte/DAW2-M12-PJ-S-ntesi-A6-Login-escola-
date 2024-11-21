@@ -1,45 +1,22 @@
-function validarFormulario() {
-    var nombre = document.getElementById("nombre").value;
-    var contrasena = document.getElementById("contrasena").value;
 
-    // Elementos para mostrar errores
-    var errorNombre = document.getElementById("error-nombre");
-    var errorContrasena = document.getElementById("error-contrasena");
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
 
-    // Limpiar mensajes previos
-    errorNombre.innerHTML = "";
-    errorContrasena.innerHTML = "";
-
-    // Expresiones regulares para validaciones
-    var validarNombre = /^[A-Za-z]+$/; // Solo letras
-    var validarContrasena = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/; // Letras y numeros
-
-    // Variable para rastrear si hay errores
-    var isValid = true;
-
-    // Validación del nombre no vacío
-    if (nombre === "") {
-        errorNombre.innerHTML = "Por favor, introduce tu nombre de usuario.";
-        isValid = false;
-    } else if (!validarNombre.test(nombre)) {
-        // Validación de nombre solo con letras
-        errorNombre.innerHTML = "El nombre de usuario solo puede contener letras (A-Z, a-z).";
-        isValid = false;
+    if (error) {
+        if (error === 'contrasena_incorrecta' || error === 'usuario_no_encontrado') {
+            document.getElementById('usuarioError').textContent = 'Usuario o contraseña incorrecto';
+            document.getElementById('contraError').textContent = 'Usuario o contraseña incorrecto';
+        } else if (error === 'campos_vacios') {
+            document.getElementById('usuarioError').textContent = 'Por favor, complete todos los campos';
+            document.getElementById('apellidoError').textContent = 'Por favor, complete todos los campos';
+            document.getElementById('contraError').textContent = 'Por favor, complete todos los campos';
+        } else if (error === 'usuario_invalido') {
+            document.getElementById('usuarioError').textContent = 'El usuario debe ser valido';
+        } else if (error === 'apellido_invalido') {
+            document.getElementById('apellidoError').textContent = 'El apellido debe contener solo letras';
+        } else if (error === 'contrasena_invalida') {
+            document.getElementById('contraError').textContent = 'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial';
+        }
     }
-
-    // Validación de la contraseña no vacía
-    if (contrasena === "") {
-        errorContrasena.innerHTML = "Por favor, introduce tu contraseña.";
-        isValid = false;
-    } else if (contrasena.length < 8) {
-        // Validación de longitud de la contraseña
-        errorContrasena.innerHTML = "La contraseña debe tener al menos 8 caracteres.";
-        isValid = false;
-    } else if (!validarContrasena.test(contrasena)) {
-        // Validación de que la contraseña contenga al menos una letra y un número
-        errorContrasena.innerHTML = "La contraseña debe contener al menos una letra y un número.";
-        isValid = false;
-    }
-
-    return isValid; // Retorna true si todo está bien, de lo contrario false
-}
+});

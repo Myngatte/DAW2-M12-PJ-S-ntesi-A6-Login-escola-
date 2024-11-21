@@ -1,8 +1,12 @@
 <?php
-    $servidor="localhost";
-    $usuario="root";
-    $passwd="1234";
-    $db="bd_escuela";
 
-    $conn = mysqli_connect($servidor,$usuario,$passwd,$db);
-
+$dbserver="localhost";
+$dbusername="root";
+$dbpassword="1234";
+$dbbasedatos="bd_escuela";
+try {
+    $conexion = mysqli_connect($dbserver, $dbusername,$dbpassword, $dbbasedatos);
+}catch (Exception $e) {
+    echo "Error de conexión: ". $e->getMessage();
+    die();
+}
