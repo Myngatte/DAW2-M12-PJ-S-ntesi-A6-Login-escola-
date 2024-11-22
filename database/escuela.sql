@@ -26,7 +26,7 @@ create table tbl_notas(
 
 create table tbl_materia(
     id_materia int auto_increment primary key not null,
-    nombre_materia varchar(20)
+    nombre_materia varchar(100)
 );
 
 
@@ -76,7 +76,7 @@ VALUES
 ('srodriguez', 'Sara', 'Rodriguez', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654329', '1994-03-17', 'F', 2),
 ('jgarcia', 'Juan', 'Garcia', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654330', '1991-05-30', 'M', 2),
 ('vhernandez', 'Veronica', 'Hernandez', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654331', '1989-08-15', 'F', 2);
-
+-- La contra es Colegio123.
 
 INSERT INTO tbl_notas (id_materia, id_user, nota)
 VALUES 
