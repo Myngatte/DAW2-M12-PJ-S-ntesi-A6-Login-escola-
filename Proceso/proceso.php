@@ -1,15 +1,13 @@
 <?php
 require_once('../conexion.php');
 session_start();
-if (isset($_POST['btn_iniciar_sesion'])  && !empty($_POST['Usuario']) && !empty($_POST['Contra'])) {
-    $contra = isset($_POST['Contra']) ? mysqli_real_escape_string($conexion, htmlspecialchars($_POST['Contra'])) : '';
-    $usuario = isset($_POST['Usuario']) ? mysqli_real_escape_string($conexion, htmlspecialchars($_POST['Usuario'])) : '';
+if (isset($_POST['boton'])  && !empty($_POST['nombre']) && !empty($_POST['contrasena'])) {
+    $contra = isset($_POST['contrasena']) ? mysqli_real_escape_string($conexion, htmlspecialchars($_POST['contrasena'])) : '';
+    $usuario = isset($_POST['nombre']) ? mysqli_real_escape_string($conexion, htmlspecialchars($_POST['nombre'])) : '';
     $_SESSION['usuario'] = $usuario;
     try {
         mysqli_autocommit($conexion, false);
-        mysqli_begin_transaction($conexion, MYSQLI_TRANS_START_READ_WRITE);
-
-        $sql = "SELECT usuario_escuela, contra_usuario,rol FROM tbl_usuario WHERE usuario_escuela = ?";
+        $sql = "SELECT usuario_escuela, contra_usuario,rol_user FROM tbl_usuario WHERE usuario_escuela = ?";
         $stmt = mysqli_prepare($conexion, $sql);
         mysqli_stmt_bind_param($stmt, "s", $usuario);
         mysqli_stmt_execute($stmt);
@@ -30,7 +28,6 @@ if (isset($_POST['btn_iniciar_sesion'])  && !empty($_POST['Usuario']) && !empty(
         mysqli_stmt_close($stmt);
         mysqli_commit($conexion);
     } catch (Exception $e) {
-        mysqli_rollback($conexion);
         echo "Se produjo un error: " . htmlspecialchars($e->getMessage());
     }
 } else {
