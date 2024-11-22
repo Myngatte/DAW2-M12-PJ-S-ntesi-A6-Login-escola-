@@ -1,10 +1,12 @@
 <?php
-$host = '127.0.0.1';
-$bdname = 'bd_escuela';
-$usuario = 'root';
-$contrasenya = '1234';
-try{
-    $conexion = new PDO("mysql:host=$host; dbname=$bdname" , $usuario, $contrasenya);
-}catch(PDOException $e){
-    echo "El error es:".$e->getMessage();
+
+$dbserver="localhost";
+$dbusername="root";
+$dbpassword="1234";
+$dbbasedatos="bd_escuela";
+try {
+    $conexion = mysqli_connect($dbserver, $dbusername,$dbpassword, $dbbasedatos);
+}catch (Exception $e) {
+    echo "Error de conexión: ". $e->getMessage();
+    die();
 }
