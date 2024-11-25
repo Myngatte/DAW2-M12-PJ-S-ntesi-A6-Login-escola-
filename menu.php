@@ -13,6 +13,9 @@ if (!isset($_SESSION['id_usuario'])) {
     <title>Document</title>
 </head>
 <body>
+    <form action="./registrer.php" method="post">
+        <button type="submit" name="btn_crear_usuario">Crear</button>
+    </form>
     <?php
             include_once('conexion.php');
             try {
@@ -31,15 +34,15 @@ if (!isset($_SESSION['id_usuario'])) {
                 </tr>";
         
                 foreach ($resultado as $fila) {
-                     echo "<tr>";
-                     echo "<td>" . $fila['usuario_escuela'] . "</td>";
+                    echo "<tr>";
+                     echo "<td><a href='./notas.php?id=".$fila['id_usuario']."'>".$fila['usuario_escuela']."</a></td>";                     
                      echo "<td>" . $fila['nom_usuario'] . " " . $fila['ape_usuario'] . "</td>";
                      echo "<td>" . $fila['telefono_usuario'] . "</td>";
                      echo "<td>" . $fila['fecha_nacimi_usuario'] . "</td>";
                      echo "<td>" . $fila['sexo_usuario'] . "</td>";
                     echo "<td>
-                    <a href='editar_usuario.php?id=".$fila['id_usuario']."'>Editar</a>
-                    <a href='eliminar_usuario.php?id=".$fila['id_usuario']."'>Eliminar</a>
+                    <a href='./proceso/editar_usuario.php?id=".$fila['id_usuario']."'>Editar</a>
+                    <a href='./proceso/eliminar_usuario.php?id=".$fila['id_usuario']."'>Eliminar</a>
                     </td>";
                     echo "<tr>";
                 }
@@ -49,8 +52,5 @@ if (!isset($_SESSION['id_usuario'])) {
             } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();
             }
-        
-        
-            ?>    
-    ?>
+        ?>    
 </body>
