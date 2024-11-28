@@ -2,7 +2,6 @@
 session_start();
 require_once('./conexion.php');
 
-// Verificar si el usuario está autenticado
 if (!isset($_SESSION['id_usuario'])) {
     header('Location: ./index.php?error=sesiones');
     exit();
@@ -10,29 +9,22 @@ if (!isset($_SESSION['id_usuario'])) {
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id_usuario = intval($_GET['id']);
-    
-    try {
-        // Consultar información del usuario
-        $sql = "SELECT * FROM tbl_usuario WHERE id_usuario = ?";
-        $stmt = mysqli_prepare($conexion, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $id_usuario);
-        mysqli_stmt_execute($stmt);
-        $resultado = mysqli_stmt_get_result($stmt);
-        
-        // Verificar si el usuario existe
-        if ($fila = mysqli_fetch_assoc($resultado)) {
-            $usuario_escuela = htmlspecialchars($fila['usuario_escuela']);
-            $nombre_completo = htmlspecialchars($fila['nom_usuario']) . " " . htmlspecialchars($fila['ape_usuario']);
-        } else {
-            echo "<p>No se encontró el usuario.</p>";
-            exit();
-        }
 
-        mysqli_stmt_close($stmt);
-    } catch (Exception $e) {
-        echo "<p>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
+    $sql = "SELECT * FROM tbl_usuario WHERE id_usuario = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $id_usuario);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+
+    if ($fila = mysqli_fetch_assoc($resultado)) {
+        $usuario_escuela = htmlspecialchars($fila['usuario_escuela']);
+        $nombre_completo = htmlspecialchars($fila['nom_usuario']) . " " . htmlspecialchars($fila['ape_usuario']);
+    } else {
+        echo "<p>No se encontró el usuario.</p>";
+        exit();
     }
 
+    mysqli_stmt_close($stmt);
 } else {
     echo "<p>ID de usuario no válido.</p>";
     exit();
@@ -40,27 +32,39 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 if (isset($_POST['confirmar_eliminar'])) {
     try {
-        // Eliminar el usuario
-        $sql_delete = "DELETE FROM tbl_usuario WHERE id_usuario = ?";
-        $stmt_delete = mysqli_prepare($conexion, $sql_delete);
-        mysqli_stmt_bind_param($stmt_delete, "i", $id_usuario);
-        
-        if (mysqli_stmt_execute($stmt_delete)) {
-            header('Location: menu.php?mensaje=Usuario eliminado correctamente');
-            exit();
-        } else {
-            echo "<p>Error al eliminar el usuario: " . mysqli_error($conexion) . "</p>";
+        mysqli_begin_transaction($conexion);
+
+        $sql_notas = "DELETE FROM tbl_notas WHERE id_user = ?";
+        $stmt_notas = mysqli_prepare($conexion, $sql_notas);
+        mysqli_stmt_bind_param($stmt_notas, "i", $id_usuario);
+
+        if (!mysqli_stmt_execute($stmt_notas)) {
+            throw new Exception("Error al eliminar las notas relacionadas: " . mysqli_error($conexion));
         }
 
-        mysqli_stmt_close($stmt_delete);
-        mysqli_close($conexion);
+        mysqli_stmt_close($stmt_notas);
+
+        $sql_usuario = "DELETE FROM tbl_usuario WHERE id_usuario = ?";
+        $stmt_usuario = mysqli_prepare($conexion, $sql_usuario);
+        mysqli_stmt_bind_param($stmt_usuario, "i", $id_usuario);
+
+        if (!mysqli_stmt_execute($stmt_usuario)) {
+            throw new Exception("Error al eliminar el usuario: " . mysqli_error($conexion));
+        }
+
+        mysqli_stmt_close($stmt_usuario);
+
+        mysqli_commit($conexion);
+
+        header('Location: menu.php?mensaje=Usuario eliminado correctamente');
+        exit();
 
     } catch (Exception $e) {
+        mysqli_rollback($conexion);
         echo "<p>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
