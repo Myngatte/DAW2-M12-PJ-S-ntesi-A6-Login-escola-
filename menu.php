@@ -8,7 +8,7 @@ if (!isset($_SESSION['id_usuario'])) {
     exit();
 }
 
-// Variable para mensajes
+// Mensaje de acciones
 $message = "";
 
 // Manejar la actualización de usuario
@@ -67,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Estudiantes</title>
     <link rel="stylesheet" href="./css/menu.css">
-    <title>Gestión de Usuarios</title>
 </head>
 <body>
     <div class="container">
@@ -212,8 +212,6 @@ else {
     }
 }
 ?>
-
-
     </div>
 </body>
 </html>
