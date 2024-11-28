@@ -122,3 +122,68 @@ form {
 td form input {
     width: 120px;
 }
+
+/* Estilo de la tabla de materias y notas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Cabecera de la tabla */
+table th {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background-color: #f7f7f7;
+    font-weight: bold;
+}
+
+/* Estilo de las celdas */
+table td {
+    padding: 8px;
+    text-align: center;
+}
+
+/* Estilo de los inputs para las notas */
+input[type="number"] {
+    width: 100px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-bottom: 5px; /* Añadimos un pequeño margen entre el campo de entrada y el botón */
+}
+
+/* Aseguramos que el formulario dentro de la celda tenga una distribución adecuada */
+td form {
+    display: block; /* Usamos block para asegurarnos que cada formulario ocupe su propia línea */
+    text-align: center; /* Centramos el contenido dentro del formulario */
+}
+
+/* Estilo del botón de editar */
+button.edit-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: block;  /* Asegura que el botón esté en su propia línea */
+    margin: 0 auto;  /* Centra el botón */
+    padding-top: 10px; /* Añade un espacio por encima del botón */
+}
+
+/* Estilo de la imagen del botón */
+button.edit-btn .edit-icon {
+    width: 35px;
+    height: auto;
+}
+
+/* Efecto al pasar el ratón sobre el botón */
+button.edit-btn:hover .edit-icon {
+    transform: scale(1.1);
+}
+
+/* Añadir separación entre las filas de la tabla */
+tr {
+    border-bottom: 1px solid #ddd;
+}
