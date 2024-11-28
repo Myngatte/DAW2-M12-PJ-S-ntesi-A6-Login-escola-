@@ -73,6 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
 <body>
     <div class="container">
         <h1>Gestión de Usuarios</h1>
+        <div class="acciones">
+            <a href="añadir_usuario.php" class="btn btn-primary">Añadir Usuario</a>
+        </div>
         <?php
         try {
             // Preparar la consulta

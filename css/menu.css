@@ -131,6 +131,31 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="date"]:focus, s
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
+/* Estilo para el contenedor de acciones */
+.acciones {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Botón primario */
+.btn {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
 
 /* Estilo responsivo */
 @media (max-width: 768px) {
