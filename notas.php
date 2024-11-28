@@ -36,34 +36,33 @@ $materia_filter = isset($_GET['materia']) ? $_GET['materia'] : '';
 $nombre_filter = isset($_GET['nombre']) ? $_GET['nombre'] : '';
 $apellido_filter = isset($_GET['apellido']) ? $_GET['apellido'] : '';
 
-// Base query
 $sql = "
-    SELECT 
-        m.nombre_materia AS Materia,
-        u.nom_usuario AS NombreUsuario,
-        u.ape_usuario AS ApellidoUsuario,
-        n.nota AS MejorNota,
-        ( 
-            SELECT AVG(nota)
-            FROM tbl_notas 
-            WHERE id_materia = m.id_materia
-        ) AS MediaNotas
-    FROM 
-        tbl_materia m
-    JOIN 
-        tbl_notas n ON n.id_materia = m.id_materia
-    JOIN 
-        tbl_usuario u ON u.id_usuario = n.id_user
-    WHERE 
-        n.id_user = (
-            SELECT id_user
-            FROM tbl_notas
-            WHERE id_materia = m.id_materia
-            ORDER BY nota DESC
-            LIMIT 1
-        )";
+        SELECT 
+            m.nombre_materia AS Materia,
+            u.nom_usuario AS NombreUsuario,
+            u.ape_usuario AS ApellidoUsuario,
+            n.nota AS MejorNota,
+            ( 
+                SELECT AVG(nota)
+                FROM tbl_notas 
+                WHERE id_materia = m.id_materia
+            ) AS MediaNotas
+        FROM 
+            tbl_materia m
+        JOIN 
+            tbl_notas n ON n.id_materia = m.id_materia
+        JOIN 
+            tbl_usuario u ON u.id_usuario = n.id_user
+        WHERE 
+            n.id_user = (
+                SELECT id_user
+                FROM tbl_notas
+                WHERE id_materia = m.id_materia
+                ORDER BY nota DESC
+                LIMIT 1
+            )";
 
-// Add filters only if they are set
+// Añadir los filtros solo si están establecidos
 $filters = [];
 if ($materia_filter) {
     $filters[] = "m.nombre_materia LIKE ?";
@@ -75,22 +74,22 @@ if ($apellido_filter) {
     $filters[] = "u.ape_usuario LIKE ?";
 }
 
-// Append the filters to the SQL query
+// Si se han añadido filtros, incluirlos en la consulta
 if (count($filters) > 0) {
     $sql .= " AND " . implode(" AND ", $filters);
 }
 
-$sql .= " ORDER BY MediaNotas DESC;";
+$sql .= " ORDER BY MediaNotas DESC;"; // Ordenar por la media de las notas
 
-// Prepare the statement
+// Preparar la consulta
 $stmt = mysqli_prepare($conexion, $sql);
 
-// Define the parameters
+// Definir los parámetros
 $params = [];
 $param_types = '';
 if ($materia_filter) {
     $params[] = "%" . $materia_filter . "%";
-    $param_types .= 's'; // 's' for string
+    $param_types .= 's'; // 's' para string
 }
 if ($nombre_filter) {
     $params[] = "%" . $nombre_filter . "%";
@@ -101,7 +100,7 @@ if ($apellido_filter) {
     $param_types .= 's';
 }
 
-// Bind the parameters if any
+// Vincular los parámetros si existen
 if (count($params) > 0) {
     mysqli_stmt_bind_param($stmt, $param_types, ...$params);
 }
@@ -110,6 +109,7 @@ if (count($params) > 0) {
 mysqli_stmt_execute($stmt);
 $resultado = mysqli_stmt_get_result($stmt);
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -169,14 +169,16 @@ $resultado = mysqli_stmt_get_result($stmt);
                         <th>Materia</th>
                         <th>Nombre Completo</th>
                         <th>Mejor Nota</th>
+                        <th>Nota Media</th> <!-- Nueva columna para la media de notas -->
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($fila = mysqli_fetch_assoc($resultado)): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($fila['Materia']); ?></td>
+                            <td><a href="materia.php?materia=<?php echo urlencode($fila['Materia']); ?>"><?php echo htmlspecialchars($fila['Materia']); ?></a></td>
                             <td><?php echo htmlspecialchars($fila['NombreUsuario']); ?> <?php echo htmlspecialchars($fila['ApellidoUsuario']); ?></td>
                             <td><?php echo htmlspecialchars($fila['MejorNota']); ?></td>
+                            <td><?php echo htmlspecialchars($fila['MediaNotas']); ?></td> <!-- Mostrar la media de notas -->
                         </tr>
                     <?php endwhile; ?>
                 </tbody>

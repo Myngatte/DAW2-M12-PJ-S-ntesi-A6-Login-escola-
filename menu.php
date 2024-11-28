@@ -193,7 +193,7 @@ $resultado = mysqli_stmt_get_result($stmt);
                             <td><?php echo htmlspecialchars($fila['sexo_usuario']); ?></td>
                             <td>
                                 <a href='editar_usuario.php?id=<?php echo urlencode($fila['id_usuario']); ?>'>Editar</a>
-                                <a href='eliminar_usuario.php?id=<?php echo urlencode($fila['id_usuario']); ?>' onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">Eliminar</a>
+                                <a href='eliminar_usuario.php?id=<?php echo urlencode($fila['id_usuario']); ?>' >Eliminar</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>

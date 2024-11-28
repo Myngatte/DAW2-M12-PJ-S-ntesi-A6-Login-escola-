@@ -11,7 +11,7 @@ if (!isset($_SESSION['id_usuario'])) {
 // Verificar si se recibió un ID válido
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     echo "<p>ID de usuario no válido.</p>";
-    echo '<a href="menu.php">Volver a la lista de usuarios</a>';
+    echo '<a href="menu.php" class="btn">Volver a la lista de usuarios</a>';
     exit();
 }
 
@@ -41,7 +41,7 @@ try {
         $sexo = htmlspecialchars($fila['sexo_usuario']);
     } else {
         echo "<p>No se encontró información para este usuario.</p>";
-        echo '<a href="menu.php">Volver a la lista de usuarios</a>';
+        echo '<a href="menu.php" class="btn">Volver a la lista de usuarios</a>';
         exit();
     }
 
@@ -110,7 +110,7 @@ try {
 
 } catch (Exception $e) {
     echo "<p>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
-    echo '<a href="menu.php">Volver a la lista de usuarios</a>';
+    echo '<a href="menu.php" class="btn">Volver a la lista de usuarios</a>';
     exit();
 }
 ?>
@@ -134,10 +134,10 @@ try {
 
         <h2>Materias y Notas</h2>
         <?php if ($mensaje): ?>
-            <p><strong><?= $mensaje ?></strong></p>
+            <p class="message"><strong><?= $mensaje ?></strong></p>
         <?php endif; ?>
 
-        <form method="POST">
+        <form method="POST" class="notas-form">
             <table>
                 <thead>
                     <tr>
@@ -152,14 +152,11 @@ try {
                             <td><?= $nota_alumno['materia'] ?></td>
                             <td>
                                 <!-- Cada materia tiene un formulario individual con su propio campo de nota -->
-                                <form method="POST">
-                                    <input type="hidden" name="id_materia" value="<?= $nota_alumno['id_materia'] ?>">
-                                    <input type="number" step="0.01" name="nota" value="<?= $nota_alumno['nota'] ?>" placeholder="Ingrese nota">
-                                    <br>
-                                    <button type="submit" class="edit-btn" title="Guardar Cambios">
-                                        <img src="./Imagenes/boton_editar.png" alt="Guardar" class="edit-icon">
-                                    </button>
-                                </form>
+                                <input type="hidden" name="id_materia" value="<?= $nota_alumno['id_materia'] ?>">
+                                <input type="number" step="0.01" name="nota" value="<?= $nota_alumno['nota'] ?>" placeholder="Ingrese nota" class="input-note">
+                            </td>
+                            <td>
+                                <button type="submit" class="btn">Guardar Cambios</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
