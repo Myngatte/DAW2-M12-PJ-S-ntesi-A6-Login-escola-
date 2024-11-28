@@ -48,11 +48,11 @@ try {
     mysqli_stmt_close($stmt_usuario);
 
     // Procesar actualización de notas
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_materia']) && isset($_POST['nota'])) {
         $id_materia = intval($_POST['id_materia']);
         $nota = floatval($_POST['nota']);
 
-        if ($id_materia && $nota >= 0) {
+        if ($nota >= 0) {
             // Verificar si la nota ya existe
             $sql_check = "SELECT id_notas FROM tbl_notas WHERE id_user = ? AND id_materia = ?";
             $stmt_check = mysqli_prepare($conexion, $sql_check);
@@ -67,7 +67,6 @@ try {
                 mysqli_stmt_bind_param($stmt_update, "dii", $nota, $id_usuario, $id_materia);
                 mysqli_stmt_execute($stmt_update);
                 $mensaje = "Nota actualizada correctamente.";
-                mysqli_stmt_close($stmt_update);
             } else {
                 // Insertar nueva nota
                 $sql_insert = "INSERT INTO tbl_notas (id_user, id_materia, nota) VALUES (?, ?, ?)";
@@ -75,7 +74,6 @@ try {
                 mysqli_stmt_bind_param($stmt_insert, "iid", $id_usuario, $id_materia, $nota);
                 mysqli_stmt_execute($stmt_insert);
                 $mensaje = "Nota añadida correctamente.";
-                mysqli_stmt_close($stmt_insert);
             }
 
             mysqli_stmt_close($stmt_check);
@@ -116,6 +114,7 @@ try {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -152,16 +151,16 @@ try {
                         <tr>
                             <td><?= $nota_alumno['materia'] ?></td>
                             <td>
-                            <form method="POST">
-                                <input type="hidden" name="id_materia" value="<?= $nota_alumno['id_materia'] ?>">
-                                <input type="number" step="0.01" name="nota" value="<?= $nota_alumno['nota'] ?>" placeholder="Ingrese nota">
-                            </form>
-                        </td>
-                        <td>
-                            <button type="submit" class="edit-btn" title="Editar nota">
-                                <img src="./Imagenes/boton_editar.png" alt="Editar" class="edit-icon">
-                            </button>
-                        </td>
+                                <!-- Cada materia tiene un formulario individual con su propio campo de nota -->
+                                <form method="POST">
+                                    <input type="hidden" name="id_materia" value="<?= $nota_alumno['id_materia'] ?>">
+                                    <input type="number" step="0.01" name="nota" value="<?= $nota_alumno['nota'] ?>" placeholder="Ingrese nota">
+                                    <br>
+                                    <button type="submit" class="edit-btn" title="Guardar Cambios">
+                                        <img src="./Imagenes/boton_editar.png" alt="Guardar" class="edit-icon">
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
