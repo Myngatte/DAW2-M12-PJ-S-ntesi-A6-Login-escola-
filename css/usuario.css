@@ -250,3 +250,99 @@ form button[type="submit"] {
 form button[type="submit"]:hover {
     background-color: #a79c87;
 }
+/* Pantallas pequeñas (tablets y móviles en modo paisaje) */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filters input[type="text"],
+    .filters select {
+        width: 100%;
+    }
+
+    .filters button {
+        width: 100%;
+    }
+
+    table td input {
+        width: 100%;
+    }
+
+    .pagination {
+        flex-direction: column;
+    }
+
+    .pagination button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    a {
+        padding: 10px 20px;
+        font-size: 16px;
+        width: 100%;
+        text-align: center;
+        display: block;
+        margin-top: 20px;
+    }
+}
+
+/* Pantallas muy pequeñas (móviles en orientación vertical) */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .filters {
+        gap: 8px;
+    }
+
+    .filters input[type="text"],
+    .filters select {
+        width: 100%;
+    }
+
+    .pagination button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    a {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .filters button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    table th, table td {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    table td input {
+        width: 90px;
+    }
+
+    table td a {
+        font-size: 14px;
+    }
+}

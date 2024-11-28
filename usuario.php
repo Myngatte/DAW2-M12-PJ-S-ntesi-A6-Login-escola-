@@ -48,37 +48,45 @@ try {
     mysqli_stmt_close($stmt_usuario);
 
     // Procesar actualización de notas
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_materia']) && isset($_POST['nota'])) {
-        $id_materia = intval($_POST['id_materia']);
-        $nota = floatval($_POST['nota']);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['notas'])) {
+        // Recibir las notas y sus IDs desde el formulario
+        foreach ($_POST['notas'] as $id_materia => $nota) {
+            $nota = floatval($nota); // Convertir a número decimal
 
-        if ($nota >= 0) {
-            // Verificar si la nota ya existe
-            $sql_check = "SELECT id_notas FROM tbl_notas WHERE id_user = ? AND id_materia = ?";
-            $stmt_check = mysqli_prepare($conexion, $sql_check);
-            mysqli_stmt_bind_param($stmt_check, "ii", $id_usuario, $id_materia);
-            mysqli_stmt_execute($stmt_check);
-            $resultado_check = mysqli_stmt_get_result($stmt_check);
-
-            if ($fila = mysqli_fetch_assoc($resultado_check)) {
-                // Actualizar nota existente
-                $sql_update = "UPDATE tbl_notas SET nota = ? WHERE id_user = ? AND id_materia = ?";
-                $stmt_update = mysqli_prepare($conexion, $sql_update);
-                mysqli_stmt_bind_param($stmt_update, "dii", $nota, $id_usuario, $id_materia);
-                mysqli_stmt_execute($stmt_update);
-                $mensaje = "Nota actualizada correctamente.";
-            } else {
-                // Insertar nueva nota
-                $sql_insert = "INSERT INTO tbl_notas (id_user, id_materia, nota) VALUES (?, ?, ?)";
-                $stmt_insert = mysqli_prepare($conexion, $sql_insert);
-                mysqli_stmt_bind_param($stmt_insert, "iid", $id_usuario, $id_materia, $nota);
-                mysqli_stmt_execute($stmt_insert);
-                $mensaje = "Nota añadida correctamente.";
+            // Verificar que la nota esté en el rango permitido (0 a 10)
+            if ($nota < 0 || $nota > 10) {
+                $mensaje = "La nota para la materia ID $id_materia debe estar entre 0 y 10.";
+                break; // Si alguna nota no es válida, interrumpimos el proceso
             }
 
-            mysqli_stmt_close($stmt_check);
-        } else {
-            $mensaje = "Datos inválidos.";
+            // Si la nota es válida, procedemos a actualizarla
+            if ($nota >= 0 && $nota <= 10) {
+                // Verificar si la nota ya existe
+                $sql_check = "SELECT id_notas FROM tbl_notas WHERE id_user = ? AND id_materia = ?";
+                $stmt_check = mysqli_prepare($conexion, $sql_check);
+                mysqli_stmt_bind_param($stmt_check, "ii", $id_usuario, $id_materia);
+                mysqli_stmt_execute($stmt_check);
+                $resultado_check = mysqli_stmt_get_result($stmt_check);
+
+                if ($fila = mysqli_fetch_assoc($resultado_check)) {
+                    // Actualizar nota existente
+                    $sql_update = "UPDATE tbl_notas SET nota = ? WHERE id_user = ? AND id_materia = ?";
+                    $stmt_update = mysqli_prepare($conexion, $sql_update);
+                    mysqli_stmt_bind_param($stmt_update, "dii", $nota, $id_usuario, $id_materia);
+                    mysqli_stmt_execute($stmt_update);
+                } else {
+                    // Insertar nueva nota
+                    $sql_insert = "INSERT INTO tbl_notas (id_user, id_materia, nota) VALUES (?, ?, ?)";
+                    $stmt_insert = mysqli_prepare($conexion, $sql_insert);
+                    mysqli_stmt_bind_param($stmt_insert, "iid", $id_usuario, $id_materia, $nota);
+                    mysqli_stmt_execute($stmt_insert);
+                }
+
+                mysqli_stmt_close($stmt_check);
+            }
+        }
+        if (!isset($mensaje)) {
+            $mensaje = "Notas actualizadas correctamente.";
         }
     }
 
@@ -143,7 +151,6 @@ try {
                     <tr>
                         <th>Materia</th>
                         <th>Nota</th>
-                        <th>Guardar Cambios</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -151,17 +158,14 @@ try {
                         <tr>
                             <td><?= $nota_alumno['materia'] ?></td>
                             <td>
-                                <!-- Cada materia tiene un formulario individual con su propio campo de nota -->
-                                <input type="hidden" name="id_materia" value="<?= $nota_alumno['id_materia'] ?>">
-                                <input type="number" step="0.01" name="nota" value="<?= $nota_alumno['nota'] ?>" placeholder="Ingrese nota" class="input-note">
-                            </td>
-                            <td>
-                                <button type="submit" class="btn">Guardar Cambios</button>
+                                <!-- Cada materia tiene un campo de entrada para su nota -->
+                                <input type="number" step="0.01" name="notas[<?= $nota_alumno['id_materia'] ?>]" value="<?= $nota_alumno['nota'] ?>" placeholder="Ingrese nota" class="input-note" min="0" max="10">
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <button type="submit" class="btn">Guardar Cambios</button>
         </form>
 
         <a href="menu.php" class="btn">Volver a la lista de usuarios</a>

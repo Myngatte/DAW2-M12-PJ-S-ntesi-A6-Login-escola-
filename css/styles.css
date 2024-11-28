@@ -218,12 +218,44 @@ button:hover {
     }
 
     .logo {
-        width: 30%; /* Tamaño ajustado para pantallas pequeñas */
-        height: 30%;
+        width: 50%; /* Ajusta el tamaño de la imagen del logo */
+        height: auto;
         border-radius: 50%;
     }
 
     form {
-        max-width: 100%; /* El formulario ocupa el 100% del ancho en móviles */
+        padding: 20px;
+        max-width: 80%; /* El formulario ocupa el 80% del ancho en pantallas pequeñas */
+    }
+
+    input, button {
+        font-size: 14px; /* Reduce el tamaño de fuente para pantallas pequeñas */
+    }
+
+    h1 {
+        font-size: 22px; /* Ajusta el tamaño del título */
+        margin-bottom: 30px;
+    }
+}
+
+/* Media query para pantallas muy pequeñas (como móviles en orientación vertical) */
+@media (max-width: 480px) {
+    .logo {
+        width: 70%; /* Reducción del tamaño de la imagen en pantallas muy pequeñas */
+    }
+
+    form {
+        padding: 10px;
+        max-width: 90%; /* El formulario ocupa el 90% del ancho */
+    }
+
+    input, button {
+        font-size: 14px; /* Tamaño de fuente más pequeño en pantallas muy pequeñas */
+        padding: 12px; /* Reduce el padding de los campos */
+    }
+
+    h1 {
+        font-size: 20px; /* Ajusta aún más el tamaño del título */
+        margin-bottom: 20px;
     }
 }

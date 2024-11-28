@@ -132,3 +132,77 @@ input:focus, select:focus {
 .btn-generate:hover {
     background-color: #5a6268;
 }
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    /* Ajustar barra lateral para pantallas medianas */
+    .sidebar {
+        width: 200px;
+    }
+    .main {
+        margin-left: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Barra lateral en dispositivos móviles y tabletas */
+    .sidebar {
+        width: 180px;
+        padding-top: 10px;
+    }
+
+    .sidebar h3 {
+        font-size: 16px;
+    }
+
+    .sidebar a {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    /* Ajustar contenido principal */
+    .main {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    /* Formulario */
+    .form {
+        grid-template-columns: 1fr; /* Una columna en lugar de dos */
+        padding: 15px;
+    }
+
+    .btn-primary {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ajustes adicionales para pantallas muy pequeñas */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 10px 0;
+    }
+
+    .sidebar a {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .form {
+        padding: 10px;
+    }
+
+    .btn-primary {
+        grid-column: span 1;
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}

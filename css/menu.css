@@ -316,3 +316,88 @@ table td a {
 table td a:hover {
     color: #003d99;
 }
+/* Diseño responsivo */
+@media screen and (max-width: 1024px) {
+    /* Ajustar la barra lateral en tabletas */
+    .sidebar {
+        width: 200px;
+        padding-top: 15px;
+    }
+
+    .container {
+        margin-left: 220px; /* Deja espacio para la barra lateral */
+    }
+
+    /* Ajustar la tabla y los filtros */
+    table {
+        font-size: 12px;
+    }
+
+    .filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filters input[type="text"],
+    .filters select {
+        width: 100%; /* Asegura que los filtros se adapten */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* La barra lateral se convierte en un menú en dispositivos más pequeños */
+    .sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+        padding-top: 10px;
+        display: none; /* Se ocultará en pantallas pequeñas */
+    }
+
+    .container {
+        margin-left: 0; /* El contenedor ocupará todo el ancho */
+    }
+
+    /* Mostrar barra lateral en dispositivos pequeños cuando se hace clic en un botón (si es necesario) */
+    .sidebar.show {
+        display: flex;
+    }
+
+    /* Ajustar los botones de la tabla y los filtros */
+    .acciones .btn {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    table td a {
+        font-size: 12px;
+    }
+
+    .filters {
+        flex-direction: column;
+    }
+
+    .filters input[type="text"],
+    .filters select {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Ajuste de la tabla para móviles */
+    table th, table td {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .filters label,
+    .filters input[type="text"],
+    .filters select {
+        font-size: 12px;
+    }
+
+    .filters button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

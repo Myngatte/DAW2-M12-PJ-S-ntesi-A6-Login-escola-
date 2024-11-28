@@ -39,11 +39,11 @@ $apellido_filter = isset($_GET['apellido']) ? $_GET['apellido'] : '';
 $usuario_filter = isset($_GET['usuario']) ? $_GET['usuario'] : '';
 
 // Consulta de usuarios con filtros acumulativos
-$sql = "SELECT * FROM tbl_usuario WHERE 1=1";
+$sql = "SELECT * FROM tbl_usuario WHERE 1=1 AND rol_user = 2";
 
 // Aplicar filtros según las selecciones
 if ($sexo_filter) {
-    $sql .= " AND sexo_usuario = ?";
+    $sql .= " AND sexo_usuario = ? ";
 }
 if ($nombre_filter) {
     $sql .= " AND nom_usuario LIKE ?";
@@ -193,7 +193,7 @@ $resultado = mysqli_stmt_get_result($stmt);
                             <td><?php echo htmlspecialchars($fila['sexo_usuario']); ?></td>
                             <td>
                                 <a href='editar_usuario.php?id=<?php echo urlencode($fila['id_usuario']); ?>'>Editar</a>
-                                <a href='eliminar_usuario.php?id=<?php echo urlencode($fila['id_usuario']); ?>' >Eliminar</a>
+                                <a href='eliminar_usuario.php?id=<?php echo urlencode($fila['id_usuario']); ?>'>Eliminar</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
