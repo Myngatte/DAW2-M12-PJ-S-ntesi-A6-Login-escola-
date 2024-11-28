@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h3><?php echo htmlspecialchars($nom_usuario); ?></h3>
         <span>Admin</span>
         <a href="./menu.php">Estudiantes</a>
-        <a href="#">Notas</a>
+        <a href="./menu.php?notas=true">Notas</a>
         <a href="logout.php" class="logout">Logout</a>
     </div>
     <div class="main">
