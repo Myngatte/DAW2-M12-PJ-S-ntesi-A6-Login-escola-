@@ -34,11 +34,11 @@ if (isset($_POST['boton'])  && !empty($_POST['nombre']) && !empty($_POST['contra
                 header("Location: ../menu.php");    
                 exit();
             } else {
-                header('Location:../index.php?error=contrasena_incorrecta');
+                header('Location:../index.php?error=usr_mal');
             }
             }
         } else {
-            header('Location:../index.php?error=usuario_no_encontrado');
+            header('Location:../index.php?error=usr_mal');
         }
 
         mysqli_stmt_close($stmt);
