@@ -148,13 +148,13 @@ try {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($materias_notas as $mn): ?>
+                    <?php foreach ($materias_notas as $nota_alumno): ?>
                         <tr>
-                            <td><?= $mn['materia'] ?></td>
+                            <td><?= $nota_alumno['materia'] ?></td>
                             <td>
                             <form method="POST">
-                                <input type="hidden" name="id_materia" value="<?= $mn['id_materia'] ?>">
-                                <input type="number" step="0.01" name="nota" value="<?= $mn['nota'] ?>" placeholder="Ingrese nota">
+                                <input type="hidden" name="id_materia" value="<?= $nota_alumno['id_materia'] ?>">
+                                <input type="number" step="0.01" name="nota" value="<?= $nota_alumno['nota'] ?>" placeholder="Ingrese nota">
                             </form>
                         </td>
                         <td>
