@@ -1,0 +1,148 @@
+/* Archivo: estilos.css */
+
+/* Estilo general de la página */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+h1 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+/* Mensaje */
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+table th {
+    background-color: #007bff;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f4f4f9;
+}
+
+table tr:hover {
+    background-color: #e1f5fe;
+    cursor: pointer;
+}
+
+table td {
+    border: 1px solid #ddd;
+}
+
+/* Botones */
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+button[name="update_user"] {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+button[name="delete_user"] {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+button[name="update_user"]:hover {
+    background-color: #218838;
+}
+
+button[name="delete_user"]:hover {
+    background-color: #c82333;
+}
+
+/* Formularios en las filas */
+input[type="text"], input[type="email"], input[type="date"], select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+    width: 90%;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="date"]:focus, select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Estilo responsivo */
+@media (max-width: 768px) {
+    table {
+        font-size: 0.8em;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .container {
+        padding: 10px;
+    }
+}

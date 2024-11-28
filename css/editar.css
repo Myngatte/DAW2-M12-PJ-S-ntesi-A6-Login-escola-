@@ -1,0 +1,117 @@
+/* General styles for the page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Main container */
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    color: #007bff;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Form elements */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label and input styles */
+label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input, select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+}
+
+input[type="date"] {
+    cursor: pointer;
+}
+
+/* Hover effect for inputs */
+input:hover, select:hover {
+    border-color: #007bff;
+}
+
+/* Submit button */
+button {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Message styles */
+.message {
+    color: #28a745;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.message.error {
+    color: #dc3545;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Responsive design */
+@media screen and (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+        width: 100%;
+    }
+    
+    h1 {
+        font-size: 20px;
+    }
+}
