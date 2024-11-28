@@ -2,7 +2,7 @@
 
 $dbserver="localhost";
 $dbusername="root";
-$dbpassword="1234";
+$dbpassword="qweQWE123";
 $dbbasedatos="bd_escuela";
 try {
     $conexion = mysqli_connect($dbserver, $dbusername,$dbpassword, $dbbasedatos);
