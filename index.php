@@ -16,6 +16,7 @@ header("Expires: 0");
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">  
+    <script src="./scriptsjs/validations.js"></script>
     <title>Login</title>  
 </head>
 <body>

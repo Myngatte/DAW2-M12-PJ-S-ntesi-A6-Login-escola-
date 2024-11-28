@@ -45,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir Usuario</title>
     <link rel="stylesheet" href="./css/añadir_usuario.css">
+    <script src="./scriptsjs/validate_new_student.js"></script>
 </head>
 <body>
     <div class="container">

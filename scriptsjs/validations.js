@@ -1,22 +1,42 @@
+// Login
+// Validación del formulario antes de enviarlo
+function validarFormulario() {
+    const nombre = document.getElementById("nombre").value.trim();
+    const contrasena = document.getElementById("contrasena").value.trim();
 
-document.addEventListener('DOMContentLoaded', function() {
+    if (!nombre || !contrasena) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Por favor, completa todos los campos."
+        });
+        return false; // Evita que se envíe el formulario
+    }
+
+    return true; // Permite que se envíe el formulario
+}
+
+// Mostrar alertas según el parámetro de error en la URL
+document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const error = urlParams.get('error');
-
-    if (error) {
-        if (error === 'contrasena_incorrecta' || error === 'usuario_no_encontrado') {
-            document.getElementById('usuarioError').textContent = 'Usuario o contraseña incorrecto';
-            document.getElementById('contraError').textContent = 'Usuario o contraseña incorrecto';
-        } else if (error === 'campos_vacios') {
-            document.getElementById('usuarioError').textContent = 'Por favor, complete todos los campos';
-            document.getElementById('apellidoError').textContent = 'Por favor, complete todos los campos';
-            document.getElementById('contraError').textContent = 'Por favor, complete todos los campos';
-        } else if (error === 'usuario_invalido') {
-            document.getElementById('usuarioError').textContent = 'El usuario debe ser valido';
-        } else if (error === 'apellido_invalido') {
-            document.getElementById('apellidoError').textContent = 'El apellido debe contener solo letras';
-        } else if (error === 'contrasena_invalida') {
-            document.getElementById('contraError').textContent = 'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial';
+    if (urlParams.has("error")) {
+        const error = urlParams.get("error");
+        let mensaje = "";
+        switch (error) {
+            case "campos_vacios":
+                mensaje = "Por favor, completa todos los campos.";
+                break;
+            case "usr_mal":
+                mensaje = "Usuario o contraseña incorrecta";
+                break;
+            default:
+                mensaje = "No sabemos que ha pasado.";
         }
+
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: mensaje,
+        });
     }
 });
