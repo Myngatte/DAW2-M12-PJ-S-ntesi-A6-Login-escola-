@@ -152,14 +152,16 @@ try {
                         <tr>
                             <td><?= $mn['materia'] ?></td>
                             <td>
-                                <form method="POST">
-                                    <input type="hidden" name="id_materia" value="<?= $mn['id_materia'] ?>">
-                                    <input type="number" step="0.01" name="nota" value="<?= $mn['nota'] ?>" placeholder="Ingrese nota">
-                            </td>
-                            <td>
-                                    <button type="submit">Guardar</button>
-                                </form>
-                            </td>
+                            <form method="POST">
+                                <input type="hidden" name="id_materia" value="<?= $mn['id_materia'] ?>">
+                                <input type="number" step="0.01" name="nota" value="<?= $mn['nota'] ?>" placeholder="Ingrese nota">
+                            </form>
+                        </td>
+                        <td>
+                            <button type="submit" class="edit-btn" title="Editar nota">
+                                <img src="./Imagenes/boton_editar.png" alt="Editar" class="edit-icon">
+                            </button>
+                        </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
