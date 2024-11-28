@@ -1,173 +1,186 @@
-/* Archivo: estilos.css */
-
-/* Estilo general de la página */
+/* General Reset */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
     margin: 0;
-    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
     color: #333;
-    line-height: 1.6;
 }
 
 /* Contenedor principal */
 .container {
-    max-width: 1200px;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 20px;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
 }
 
-/* Títulos */
-h1 {
-    text-align: center;
-    color: #007bff;
-    margin-bottom: 20px;
-    font-size: 2em;
-}
-
-/* Mensaje */
-.message {
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 0.9em;
-}
-
-.message.success {
-    background: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.message.error {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-/* Estilos para la tabla */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-table th, table td {
-    padding: 12px 15px;
-    text-align: center;
-}
-
-table th {
-    background-color: #007bff;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-size: 0.9em;
-    font-weight: bold;
-}
-
-table tr:nth-child(even) {
-    background-color: #f4f4f9;
-}
-
-table tr:hover {
-    background-color: #e1f5fe;
-    cursor: pointer;
-}
-
-table td {
-    border: 1px solid #ddd;
-}
-
-/* Botones */
-button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-    transform: scale(1.05);
-}
-
-button[name="update_user"] {
-    background-color: #28a745;
-    color: #ffffff;
-}
-
-button[name="delete_user"] {
-    background-color: #dc3545;
-    color: #ffffff;
-}
-
-button[name="update_user"]:hover {
-    background-color: #218838;
-}
-
-button[name="delete_user"]:hover {
-    background-color: #c82333;
-}
-
-/* Formularios en las filas */
-input[type="text"], input[type="email"], input[type="date"], select {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 0.9em;
-    width: 90%;
-}
-
-input[type="text"]:focus, input[type="email"]:focus, input[type="date"]:focus, select:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-/* Estilo para el contenedor de acciones */
-.acciones {
-    margin-bottom: 20px;
+/* Estilo de la barra lateral */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 240px;
+    background-color: #c1b49a;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
 }
 
-/* Botón primario */
-.btn {
-    padding: 10px 20px;
+.sidebar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.sidebar h3 {
+    font-size: 18px;
+    color: #333;
+}
+
+.sidebar a {
     text-decoration: none;
-    color: white;
-    border-radius: 5px;
+    color: #333;
+    margin: 10px 0;
     font-size: 16px;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
     transition: background-color 0.3s ease;
 }
 
-.btn-primary {
-    background-color: #007bff;
+.sidebar a:hover {
+    background-color: #0066cc;
+    color: white;
 }
 
-.btn-primary:hover {
-    background-color: #0056b3;
+.sidebar .logout {
+    margin-top: auto;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #900;
+    cursor: pointer;
 }
 
+/* Encabezado de la lista */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
 
-/* Estilo responsivo */
-@media (max-width: 768px) {
-    table {
-        font-size: 0.8em;
-    }
+.acciones {
+    margin-bottom: 20px;
+    text-align: center;
+}
 
-    h1 {
-        font-size: 1.5em;
-    }
+.acciones .btn {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
 
-    .container {
-        padding: 10px;
-    }
+.acciones .btn:hover {
+    background-color: #005bb5;
+}
+
+/* Tabla de usuarios */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Botones de acciones */
+table td a {
+    text-decoration: none;
+    color: #0066cc;
+    margin-right: 10px;
+    transition: color 0.3s ease;
+}
+
+table td a:hover {
+    color: #003d99;
+}
+
+/* Barra de búsqueda */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+header input[type="search"],
+header input[type="date"] {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+header button {
+    padding: 8px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+header button:hover {
+    background-color: #218838;
+}
+
+/* Paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background-color: #ddd;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+    background-color: #bbb;
+}
+
+.pagination button.active {
+    background-color: #0066cc;
+    color: white;
 }
