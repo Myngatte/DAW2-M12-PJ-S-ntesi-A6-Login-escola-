@@ -9,8 +9,10 @@ create table tbl_usuario(
     telefono_usuario char(9) not null,
     fecha_nacimi_usuario date not null,
     sexo_usuario  enum('M','F') null,
-    rol_user  INT not null
+    rol_user  INT not null,
+    foto_usuario VARCHAR(255) NULL
 );
+
 
 create table tbl_rol(
     id_rol int auto_increment primary key not null,
@@ -61,17 +63,17 @@ VALUES
 ('Ciencias del deporte occidental'),
 ('Metodologias de plagio avanzadas');
 
-INSERT INTO tbl_usuario (usuario_escuela, nom_usuario, ape_usuario, contra_usuario, telefono_usuario, fecha_nacimi_usuario, sexo_usuario, rol_user) 
+INSERT INTO tbl_usuario (usuario_escuela, nom_usuario, ape_usuario, contra_usuario, telefono_usuario, fecha_nacimi_usuario, sexo_usuario, rol_user, foto_usuario) 
 VALUES 
-('mzhou', 'Ming', 'Zhou', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654321', '2004-10-30', 'M', 2),
-('rnoble', 'Roberto', 'Noble', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654322', '2005-06-18', 'M', 2),
-('aorozco', 'Aina', 'Orozco', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654323', '1980-03-20', 'F', 2),
-('mpalamari', 'Mario', 'Palamari', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654324', '1992-09-10', 'M', 2),
-('qevot', 'Quet', 'Evot', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654325', '1985-11-25', 'M', 2),
-('epote', 'Etxa', 'Pote', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654326', '1993-12-05', 'M', 2),
-('jalberto', 'Juan', 'Alberto', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654327', '1996-07-22', 'M', 2),
-('lshow', 'Lmd', 'Show', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654328', '1992-10-11', 'M', 2),
-('mbros', 'Mario', 'Bros', '$2a$12$gpoFd3AGKLQr0wzvwLgrSeYNZYw2r4VzWOF9TZyNfyadK83JjsLVO', '987654328', '1992-10-11', 'M', 1);
+('mzhou', 'Ming', 'Zhou', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654321', '2004-10-30', 'M', 2, 'mzhou.png'),
+('rnoble', 'Roberto', 'Noble', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654322', '2005-06-18', 'M', 2, 'rnoble.png'),
+('aorozco', 'Aina', 'Orozco', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654323', '1980-03-20', 'F', 2, 'aorozco.png'),
+('mpalamari', 'Mario', 'Palamari', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654324', '1992-09-10', 'M', 2, 'mpalamari.png'),
+('qevot', 'Quet', 'Evot', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654325', '1985-11-25', 'M', 2, 'qevot.png'),
+('epote', 'Etxa', 'Pote', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654326', '1993-12-05', 'M', 2, 'epote.png'),
+('jalberto', 'Juan', 'Alberto', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654327', '1996-07-22', 'M', 2, 'jalberto.png'),
+('lshow', 'Lmd', 'Show', '$2y$10$AxRGEcFkhfCapF2LJvMf8uIlWxbm8YldHJMM82tHROdI5duErL46a', '987654328', '1992-10-11', 'M', 2, 'lshow.png'),
+('mbros', 'Mario', 'Bros', '$2a$12$gpoFd3AGKLQr0wzvwLgrSeYNZYw2r4VzWOF9TZyNfyadK83JjsLVO', '987654328', '1992-10-11', 'M', 1, 'mbros.png');
 -- La contra es Colegio123.
 -- Contraseña del admin qweQWE123
 
