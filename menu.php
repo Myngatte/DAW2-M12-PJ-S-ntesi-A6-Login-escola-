@@ -14,21 +14,23 @@ $id_usuario = $_SESSION['id_usuario'];
 // Inicializar la variable de mensaje
 $message = "";
 
-// Realizar una consulta para obtener el nombre del usuario
-$sql = "SELECT nom_usuario FROM tbl_usuario WHERE id_usuario = ?";
+// Realizar una consulta para obtener el nombre y la foto del usuario
+$sql = "SELECT nom_usuario, foto_usuario FROM tbl_usuario WHERE id_usuario = ?";
 $stmt = mysqli_prepare($conexion, $sql);
 
 if ($stmt) {
     mysqli_stmt_bind_param($stmt, "i", $id_usuario); 
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt, $nom_usuario);
+    mysqli_stmt_bind_result($stmt, $nom_usuario, $foto_usuario);
 
     if (!mysqli_stmt_fetch($stmt)) {
         $nom_usuario = "Usuario";
+        $foto_usuario = "default.png"; // Imagen por defecto si no hay foto
     }
     mysqli_stmt_close($stmt);
 } else {
     $nom_usuario = "Usuario";
+    $foto_usuario = "default.png"; // Imagen por defecto
 }
 
 // Obtener los datos para los filtros
@@ -110,9 +112,10 @@ $resultado = mysqli_stmt_get_result($stmt);
 </head>
 <body>
     <div class="sidebar">
-        <img src="./images/profile.png" alt="Admin">
+        <img src="./img/<?php echo htmlspecialchars($foto_usuario); ?>" alt="<?php echo htmlspecialchars($nom_usuario); ?>" class="img-uniform">
         <h3><?php echo htmlspecialchars($nom_usuario); ?></h3>
         <span>Admin</span>
+        <br><br><br><br><br>
         <a href="./menu.php">Estudiantes</a>
         <a href="./notas.php">Notas</a>
         <a href="logout.php" class="logout">Logout</a>
@@ -122,6 +125,7 @@ $resultado = mysqli_stmt_get_result($stmt);
     <div class="container" style="margin-left: 260px;">
         <header>
             <h1>Lista de Estudiantes</h1>
+            <a href="./añadir_usuario.php"><button class="button" type="submit">Nuevo usuario</button></a>
         </header>
 
         <!-- Filtros -->
@@ -171,24 +175,28 @@ $resultado = mysqli_stmt_get_result($stmt);
             <table>
                 <thead>
                     <tr>
+                        <th>Imagen</th> <!-- Nueva columna para la imagen -->
                         <th>Nombre</th>
-                        <th>Correo</th>
                         <th>Teléfono</th>
                         <th>Nombre Usuario</th>
                         <th>Fecha Nacimiento</th>
+                        <th>Sexo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($fila = mysqli_fetch_assoc($resultado)): ?>
                         <tr>
+                            <!-- Mostrar la imagen de perfil del usuario -->
                             <td>
-                                <a href='usuario.php?id=<?php echo urlencode($fila['id_usuario']); ?>'>
-                                    <?php echo htmlspecialchars($fila['usuario_escuela']); ?>
+                                <a href="usuario.php?id=<?php echo urlencode($fila['id_usuario']); ?>">
+                                    <img src="./img/<?php echo htmlspecialchars($fila['foto_usuario'] ?? 'default.png'); ?>" alt="Foto de <?php echo htmlspecialchars($fila['nom_usuario']); ?>" class="img-uniform">
                                 </a>
                             </td>
+
                             <td><?php echo htmlspecialchars($fila['nom_usuario']); ?> <?php echo htmlspecialchars($fila['ape_usuario']); ?></td>
                             <td><?php echo htmlspecialchars($fila['telefono_usuario']); ?></td>
+                            <td><?php echo htmlspecialchars($fila['usuario_escuela']); ?></td>
                             <td><?php echo htmlspecialchars($fila['fecha_nacimi_usuario']); ?></td>
                             <td><?php echo htmlspecialchars($fila['sexo_usuario']); ?></td>
                             <td>

@@ -14,21 +14,23 @@ $id_usuario = $_SESSION['id_usuario'];
 // Inicializar la variable de mensaje
 $message = "";
 
-// Realizar una consulta para obtener el nombre del usuario
-$sql = "SELECT nom_usuario FROM tbl_usuario WHERE id_usuario = ?";
+// Realizar una consulta para obtener el nombre del usuario y la foto
+$sql = "SELECT nom_usuario, foto_usuario FROM tbl_usuario WHERE id_usuario = ?";
 $stmt = mysqli_prepare($conexion, $sql);
 
 if ($stmt) {
     mysqli_stmt_bind_param($stmt, "i", $id_usuario); 
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt, $nom_usuario);
+    mysqli_stmt_bind_result($stmt, $nom_usuario, $foto_usuario);
 
     if (!mysqli_stmt_fetch($stmt)) {
         $nom_usuario = "Usuario";
+        $foto_usuario = "default.png"; // Foto predeterminada si no tiene foto
     }
     mysqli_stmt_close($stmt);
 } else {
     $nom_usuario = "Usuario";
+    $foto_usuario = "default.png"; // Foto predeterminada
 }
 
 // Obtener los datos para los filtros
@@ -120,9 +122,10 @@ $resultado = mysqli_stmt_get_result($stmt);
 </head>
 <body>
     <div class="sidebar">
-        <img src="./images/profile.png" alt="Admin">
+        <img src="./img/<?php echo htmlspecialchars($foto_usuario); ?>" alt="<?php echo htmlspecialchars($nom_usuario); ?>" class="img-uniform">
         <h3><?php echo htmlspecialchars($nom_usuario); ?></h3>
         <span>Admin</span>
+        <br><br><br><br><br>
         <a href="./menu.php">Estudiantes</a>
         <a href="./notas.php">Notas</a>
         <a href="logout.php" class="logout">Logout</a>

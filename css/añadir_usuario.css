@@ -110,7 +110,7 @@ input:focus, select:focus {
 .btn-primary {
     grid-column: span 2;
     padding: 10px 20px;
-    background-color: #0066cc;
+    background-color: #c1b49a;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -118,7 +118,7 @@ input:focus, select:focus {
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #9f947d;
 }
 
 .btn-generate {
@@ -131,6 +131,16 @@ input:focus, select:focus {
 
 .btn-generate:hover {
     background-color: #5a6268;
+}
+/* Estilo uniforme para imágenes */
+.img-uniform {
+    width: 100px; /* Tamaño uniforme de ancho */
+    height: 100px; /* Tamaño uniforme de alto */
+    object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
+    border-radius: 50%; /* Redondea la imagen si es necesario */
+    border: 2px solid #ddd; /* Opcional: añade un borde */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Opcional: efecto de sombra */
+    margin: 10px auto; /* Centrado automático */
 }
 
 /* Responsive Styles */

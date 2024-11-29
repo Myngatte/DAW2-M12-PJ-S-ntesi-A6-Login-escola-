@@ -26,11 +26,19 @@ body {
     align-items: center;
     padding-top: 20px;
 }
+/* Asegura que las imágenes tengan bordes redondeados y un tamaño consistente */
+.img-uniform {
+    width: 80px;            /* Tamaño uniforme */
+    height: 80px;           /* Tamaño uniforme */
+    border-radius: 50%;     /* Hace las imágenes redondas */
+    object-fit: cover;      /* Asegura que la imagen se ajuste sin deformarse */
+}
 
 .sidebar img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+    width: 80px;            /* Ajuste del tamaño de las imágenes */
+    height: 80px;           /* Ajuste del tamaño de las imágenes */
+    border-radius: 50%;     /* Asegura que las imágenes sean circulares */
+    object-fit: cover;      /* Mantiene la proporción sin deformar la imagen */
     margin-bottom: 10px;
 }
 
@@ -316,6 +324,7 @@ table td a {
 table td a:hover {
     color: #003d99;
 }
+
 /* Diseño responsivo */
 @media screen and (max-width: 1024px) {
     /* Ajustar la barra lateral en tabletas */

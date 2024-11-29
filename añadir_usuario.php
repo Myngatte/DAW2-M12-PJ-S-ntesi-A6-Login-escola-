@@ -68,13 +68,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($user_count > 0) {
                 $message = "El nombre de usuario ya está en uso. Por favor, elige otro.";
             } else {
+                // Verificar si se subió una imagen
+                $foto_usuario = null;
+                if (isset($_FILES['foto_usuario']) && $_FILES['foto_usuario']['error'] == 0) {
+                    // Verificar que el archivo es una imagen PNG
+                    $file_tmp = $_FILES['foto_usuario']['tmp_name'];
+                    $file_name = $_FILES['foto_usuario']['name'];
+                    $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+                    if ($file_ext == 'png') {
+                        // Generar un nombre único para la imagen
+                        $foto_usuario = $usuario_escuela . '.png';
+                        $destination = './img/' . $foto_usuario;
+
+                        // Mover el archivo a la carpeta img
+                        if (move_uploaded_file($file_tmp, $destination)) {
+                            $message = "Imagen cargada correctamente.";
+                        } else {
+                            $message = "Error al mover la imagen.";
+                        }
+                    } else {
+                        $message = "Solo se permiten archivos PNG.";
+                    }
+                }
+
                 // Si todos los campos son válidos y el usuario no existe
                 if ($usuario_escuela && $nom_usuario_input && $ape_usuario && $contra_usuario && $telefono_usuario && $fecha_nacimi_usuario && $sexo_usuario) {
-                    $sql = "INSERT INTO tbl_usuario (usuario_escuela, nom_usuario, ape_usuario, contra_usuario, telefono_usuario, fecha_nacimi_usuario, sexo_usuario, rol_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                    $stmt = mysqli_prepare($conexion, $sql);
+                    $sql = "INSERT INTO tbl_usuario (usuario_escuela, nom_usuario, ape_usuario, contra_usuario, telefono_usuario, fecha_nacimi_usuario, sexo_usuario, rol_user, foto_usuario) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+                    $stmt = mysqli_prepare($conexion, $sql);
                     if ($stmt) {
-                        mysqli_stmt_bind_param($stmt, "sssssssi", $usuario_escuela, $nom_usuario_input, $ape_usuario, $contra_usuario, $telefono_usuario, $fecha_nacimi_usuario, $sexo_usuario, $rol_usuario);
+                        mysqli_stmt_bind_param($stmt, "sssssssis", $usuario_escuela, $nom_usuario_input, $ape_usuario, $contra_usuario, $telefono_usuario, $fecha_nacimi_usuario, $sexo_usuario, $rol_usuario, $foto_usuario);
+
                         if (mysqli_stmt_execute($stmt)) {
                             $message = "Usuario añadido correctamente.";
                         } else {
@@ -91,6 +117,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+// Realizar una consulta para obtener el nombre del usuario y la foto
+$sql = "SELECT nom_usuario, foto_usuario FROM tbl_usuario WHERE id_usuario = ?";
+$stmt = mysqli_prepare($conexion, $sql);
+
+if ($stmt) {
+    // Vincular el parámetro y ejecutar la consulta
+    mysqli_stmt_bind_param($stmt, "i", $id_usuario); // 'i' es para un tipo de dato entero (id_usuario)
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $nom_usuario, $foto_usuario); // Obtener el resultado (nombre del usuario y la foto)
+
+    // Si la consulta devuelve un resultado, obtener el nombre y la foto
+    if (mysqli_stmt_fetch($stmt)) {
+        // Si todo es correcto, se tiene el nombre y la foto del usuario
+    } else {
+        // Si no se encuentra el usuario, asignar un valor predeterminado
+        $nom_usuario = "Usuario";
+        $foto_usuario = "default.png"; // Foto predeterminada en caso de no tener una imagen
+    }
+
+    mysqli_stmt_close($stmt);
+} else {
+    // En caso de error en la consulta
+    $nom_usuario = "Usuario";
+    $foto_usuario = "default.png"; // Foto predeterminada
+}
+
 
 ?>
 
@@ -104,9 +156,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <div class="sidebar">
-        <img src="./images/profile.png" alt="Admin">
+        <img src="./img/<?php echo htmlspecialchars($foto_usuario); ?>" alt="<?php echo htmlspecialchars($nom_usuario); ?>" class="img-uniform">
         <h3><?php echo htmlspecialchars($nom_usuario); ?></h3>
         <span>Admin</span>
+        <br><br><br><br><br>
         <a href="./menu.php">Estudiantes</a>
         <a href="./menu.php?notas=true">Notas</a>
         <a href="logout.php" class="logout">Logout</a>
@@ -114,7 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="main">
         <h1>Añadir Nuevo Estudiante</h1>
         <?php if ($message) echo "<p class='message'>$message</p>"; ?>
-        <form action="añadir_usuario.php" method="post" class="form">
+        <form action="añadir_usuario.php" method="post" class="form" enctype="multipart/form-data">
             <!-- Columna izquierda -->
             <div class="form-column">
                 <div class="form-group">
@@ -152,9 +205,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <option value="F">Mujer</option>
                     </select>
                 </div>
+                <br>
+                <!-- Campo para subir la foto -->
+                <div class="form-group">
+                    <label for="foto_usuario">Foto de perfil (PNG)</label>
+                    <input type="file" id="foto_usuario" name="foto_usuario" accept="image/png">
+                </div>
             </div>
             <button type="submit" class="btn-primary">Siguiente</button>
         </form>
+
     </div>
 </body>
 </html>

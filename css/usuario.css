@@ -54,15 +54,38 @@ a:hover {
     background-color: #c1b49a;
 }
 
-
-/* Información del usuario */
-p {
-    font-size: 18px;
-    color: #555;
-    margin: 15px 0;
+/* Información del usuario - Contenedor flex */
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
-p strong {
+/* Imagen del usuario */
+.user-image {
+    flex-shrink: 0; /* Impide que la imagen se reduzca */
+    margin-right: 20px; /* Espacio entre la imagen y el texto */
+}
+
+.user-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Para hacer la imagen circular */
+    object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
+}
+
+/* Detalles del usuario */
+.user-details {
+    flex-grow: 1; /* El texto ocupará el espacio restante */
+}
+
+.user-details p {
+    font-size: 18px;
+    color: #555;
+    margin: 8px 0;
+}
+
+.user-details p strong {
     color: #333;
     font-weight: bold;
 }
@@ -250,6 +273,7 @@ form button[type="submit"] {
 form button[type="submit"]:hover {
     background-color: #a79c87;
 }
+
 /* Pantallas pequeñas (tablets y móviles en modo paisaje) */
 @media (max-width: 768px) {
     .container {
