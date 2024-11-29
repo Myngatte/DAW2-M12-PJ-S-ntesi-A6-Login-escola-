@@ -101,17 +101,72 @@ a:hover {
 }
 
 /* Responsive design */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
+    /* Body padding adjustment */
+    body {
+        padding: 15px;
+    }
+    
+    /* Main container adjustments */
+    .container {
+        padding: 25px;
+        width: 100%;
+    }
+
+    /* Heading adjustments */
+    h1 {
+        font-size: 22px;
+    }
+
+    /* Input field adjustments */
+    input, select {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    /* Submit button size */
+    button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Body padding adjustments */
     body {
         padding: 10px;
     }
-    
+
+    /* Main container adjustments */
     .container {
         padding: 20px;
         width: 100%;
     }
-    
+
+    /* Heading font size */
     h1 {
-        font-size: 20px;
+        font-size: 18px;
+    }
+
+    /* Adjust input fields */
+    input, select {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    /* Adjust submit button size */
+    button {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    /* Adjust margin on the message */
+    .message {
+        margin-bottom: 15px;
+    }
+
+    /* Adjust link font size */
+    a {
+        font-size: 14px;
     }
 }
