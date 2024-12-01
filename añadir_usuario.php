@@ -155,7 +155,8 @@ if ($stmt) {
     <link rel="stylesheet" href="./css/añadir_usuario.css">
 </head>
 <body>
-    <div class="sidebar">
+<button class="hamburger-btn">☰</button>
+    <div class="sidebar" id="sidebar">
         <img src="./img/<?php echo htmlspecialchars($foto_usuario); ?>" alt="<?php echo htmlspecialchars($nom_usuario); ?>" class="img-uniform">
         <h3><?php echo htmlspecialchars($nom_usuario); ?></h3>
         <span>Admin</span>
@@ -164,6 +165,7 @@ if ($stmt) {
         <a href="./menu.php?notas=true">Notas</a>
         <a href="logout.php" class="logout">Logout</a>
     </div>
+
     <div class="main">
         <h1>Añadir Nuevo Estudiante</h1>
         <?php if ($message) echo "<p class='message'>$message</p>"; ?>
@@ -214,7 +216,26 @@ if ($stmt) {
             </div>
             <button type="submit" class="btn-primary">Siguiente</button>
         </form>
+        <script>
+    // Seleccionar los elementos
+    const sidebar = document.getElementById('sidebar');
+    const hamburgerBtn = document.querySelector('.hamburger-btn');
 
+    // Agregar un evento de clic al botón hamburguesa
+    hamburgerBtn.addEventListener('click', () => {
+        // Alternar la clase "show" en el sidebar
+        sidebar.classList.toggle('show');
+
+        // Verificar si la clase "show" está presente en el sidebar
+        if (sidebar.classList.contains('show')) {
+            // Si la clase "show" está activa, quitar el color del botón
+            hamburgerBtn.style.background = "none";
+        } else {
+            // Si la clase "show" no está activa, restaurar el color original
+            hamburgerBtn.style.background = "";  // Esto restaura el color original
+        }
+    });
+</script>
     </div>
 </body>
 </html>

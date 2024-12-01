@@ -121,7 +121,8 @@ $resultado = mysqli_stmt_get_result($stmt);
     <link rel="stylesheet" href="./css/menu.css">
 </head>
 <body>
-    <div class="sidebar">
+    <button class="hamburger-btn">☰</button>
+    <div class="sidebar" id="sidebar">
         <img src="./img/<?php echo htmlspecialchars($foto_usuario); ?>" alt="<?php echo htmlspecialchars($nom_usuario); ?>" class="img-uniform">
         <h3><?php echo htmlspecialchars($nom_usuario); ?></h3>
         <span>Admin</span>
@@ -132,7 +133,7 @@ $resultado = mysqli_stmt_get_result($stmt);
     </div>
 
     <!-- Contenido principal -->
-    <div class="container" style="margin-left: 260px;">
+    <div class="container">
         <header>
             <h1>Mejor Alumno por Asignatura</h1>
         </header>
@@ -190,5 +191,25 @@ $resultado = mysqli_stmt_get_result($stmt);
             <p>No se encontraron resultados con los filtros seleccionados.</p>
         <?php endif; ?>
     </div>
+    <script>
+    // Seleccionar los elementos
+    const sidebar = document.getElementById('sidebar');
+    const hamburgerBtn = document.querySelector('.hamburger-btn');
+
+    // Agregar un evento de clic al botón hamburguesa
+    hamburgerBtn.addEventListener('click', () => {
+        // Alternar la clase "show" en el sidebar
+        sidebar.classList.toggle('show');
+
+        // Verificar si la clase "show" está presente en el sidebar
+        if (sidebar.classList.contains('show')) {
+            // Si la clase "show" está activa, quitar el color del botón
+            hamburgerBtn.style.background = "none";
+        } else {
+            // Si la clase "show" no está activa, restaurar el color original
+            hamburgerBtn.style.background = "";  // Esto restaura el color original
+        }
+    });
+</script>
 </body>
 </html>

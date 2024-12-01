@@ -111,7 +111,8 @@ $resultado = mysqli_stmt_get_result($stmt);
     <link rel="stylesheet" href="./css/menu.css">
 </head>
 <body>
-    <div class="sidebar">
+    <button class="hamburger-btn">☰</button>
+    <div class="sidebar" id="sidebar">
         <img src="./img/<?php echo htmlspecialchars($foto_usuario); ?>" alt="<?php echo htmlspecialchars($nom_usuario); ?>" class="img-uniform">
         <h3><?php echo htmlspecialchars($nom_usuario); ?></h3>
         <span>Admin</span>
@@ -122,15 +123,14 @@ $resultado = mysqli_stmt_get_result($stmt);
     </div>
 
     <!-- Contenido principal -->
-    <div class="container" style="margin-left: 260px;">
+    <div class="container">
         <header>
             <h1>Lista de Estudiantes</h1>
             <a href="./añadir_usuario.php"><button class="button" type="submit">Nuevo usuario</button></a>
         </header>
 
         <!-- Filtros -->
-        <form method="get" action="menu.php">
-            <div class="filters">
+        <form method="get" action="menu.php" class="filters">
                 <label for="sexo">Sexo:</label>
                 <select name="sexo" id="sexo">
                     <option value="">Todos</option>
@@ -153,7 +153,6 @@ $resultado = mysqli_stmt_get_result($stmt);
                 <form method="get" action="menu.php" style="margin-top: 10px;">
                     <button type="submit" name="clear_filters" value="true">Eliminar filtros</button>
                 </form>
-            </div>
         </form>
 
         <?php
@@ -211,5 +210,26 @@ $resultado = mysqli_stmt_get_result($stmt);
             <p>No se encontraron usuarios con los filtros seleccionados.</p>
         <?php endif; ?>
     </div>
+    <script>
+    // Seleccionar los elementos
+    const sidebar = document.getElementById('sidebar');
+    const hamburgerBtn = document.querySelector('.hamburger-btn');
+
+    // Agregar un evento de clic al botón hamburguesa
+    hamburgerBtn.addEventListener('click', () => {
+        // Alternar la clase "show" en el sidebar
+        sidebar.classList.toggle('show');
+
+        // Verificar si la clase "show" está presente en el sidebar
+        if (sidebar.classList.contains('show')) {
+            // Si la clase "show" está activa, quitar el color del botón
+            hamburgerBtn.style.background = "none";
+        } else {
+            // Si la clase "show" no está activa, restaurar el color original
+            hamburgerBtn.style.background = "";  // Esto restaura el color original
+        }
+    });
+</script>
+
 </body>
 </html>
