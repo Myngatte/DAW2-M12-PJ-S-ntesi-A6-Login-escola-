@@ -226,7 +226,7 @@ header button:hover {
 .filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
     margin-bottom: 20px;
     padding: 10px;
     background-color: #fff;
