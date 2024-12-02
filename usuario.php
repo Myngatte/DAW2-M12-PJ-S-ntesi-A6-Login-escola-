@@ -18,6 +18,47 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $id_usuario = intval($_GET['id']);
 $mensaje = "";
 
+// Manejar la solicitud POST para actualizar las notas
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {
+        foreach ($_POST['notas'] as $id_materia => $nota) {
+            // Validar que la nota sea un número válido
+            if (is_numeric($nota)) {
+                $nota = floatval($nota);
+
+                // Verificar si la nota ya existe
+                $sql_verificar = "SELECT COUNT(*) AS conteo FROM tbl_notas WHERE id_user = ? AND id_materia = ?";
+                $stmt_verificar = mysqli_prepare($conexion, $sql_verificar);
+                mysqli_stmt_bind_param($stmt_verificar, "ii", $id_usuario, $id_materia);
+                mysqli_stmt_execute($stmt_verificar);
+                $resultado_verificar = mysqli_stmt_get_result($stmt_verificar);
+                $fila_verificar = mysqli_fetch_assoc($resultado_verificar);
+                mysqli_stmt_close($stmt_verificar);
+
+                if ($fila_verificar['conteo'] > 0) {
+                    // Actualizar la nota existente
+                    $sql_actualizar = "UPDATE tbl_notas SET nota = ? WHERE id_user = ? AND id_materia = ?";
+                    $stmt_actualizar = mysqli_prepare($conexion, $sql_actualizar);
+                    mysqli_stmt_bind_param($stmt_actualizar, "dii", $nota, $id_usuario, $id_materia);
+                    mysqli_stmt_execute($stmt_actualizar);
+                    mysqli_stmt_close($stmt_actualizar);
+                } else {
+                    // Insertar una nueva nota
+                    $sql_insertar = "INSERT INTO tbl_notas (id_user, id_materia, nota) VALUES (?, ?, ?)";
+                    $stmt_insertar = mysqli_prepare($conexion, $sql_insertar);
+                    mysqli_stmt_bind_param($stmt_insertar, "iid", $id_usuario, $id_materia, $nota);
+                    mysqli_stmt_execute($stmt_insertar);
+                    mysqli_stmt_close($stmt_insertar);
+                }
+            }
+        }
+
+        $mensaje = "Notas actualizadas con éxito.";
+    } catch (Exception $e) {
+        $mensaje = "Error al actualizar notas: " . $e->getMessage();
+    }
+}
+
 try {
     // Obtener información del usuario
     $sql_usuario = "SELECT usuario_escuela, nom_usuario, ape_usuario, telefono_usuario, fecha_nacimi_usuario, sexo_usuario, foto_usuario
