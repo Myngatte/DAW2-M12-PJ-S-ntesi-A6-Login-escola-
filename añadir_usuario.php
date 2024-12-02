@@ -236,6 +236,9 @@ if ($stmt) {
         }
     });
 </script>
+    <!-- AÑADIMOS EL VALIDATE_NEW_STUDENT.JS -->
+        <script src="./scriptsjs/validate_new_student.js"></script>
+
     </div>
 </body>
 </html>
